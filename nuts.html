@@ -215,6 +215,11 @@
     </a>
     
     <script>
+
+        // Add this to the end of your index.html script section
+document.querySelector('.mobile-menu').addEventListener('click', function() {
+    document.querySelector('.nav-links').classList.toggle('show');
+});
         // Mobile menu functionality
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenu = document.querySelector('.mobile-menu');
