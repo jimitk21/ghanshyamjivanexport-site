@@ -435,6 +435,15 @@ nav {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
+/* Contact Section Email Font Size */
+.contact-info-card:nth-child(2) p {
+    font-size: 0.87rem; /* Smaller font size specifically for email in contact section */
+}
+
+header .info-item span {
+    font-size: 0.9rem; /* Smaller font size for email and phone in header */
+}
+
 .form-group {
     margin-bottom: 1rem;
 }
