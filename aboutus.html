@@ -63,24 +63,24 @@
         </div>
     </header>
     
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#" class="active">About Us</a></li>
-                <li><a href="index.html#products">Our Products</a></li>
-                <li><a href="index.html#quality">Quality</a></li>
-                <li><a href="index.html#gallery">Gallery</a></li>
-                <li><a href="certificates.html">Certificates</a></li>
-                <li><a href="index.html#contact">Contact Us</a></li>
-            </ul>
-            <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="index.html#products">Our Products</a></li>
+            <li><a href="index.html#quality">Quality</a></li>
+            <li><a href="index.html#gallery">Our Category</a></li>
+            <li><a href="certificates.html">Certificates</a></li>
+            <li><a href="index.html#contact">Contact Us</a></li>
+        </ul>
+        <div class="mobile-menu">
+            <span class="menu-icon hamburger"><i class="fas fa-bars"></i></span>
+            <span class="menu-icon close"><i class="fas fa-times"></i></span>
         </div>
-    </nav>
-
+    </div>
+</nav>
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
@@ -195,9 +195,27 @@
     </a>
     <script>
         // Simple mobile menu toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('show');
+        document.addEventListener('DOMContentLoaded', function () {
+    const mobileMenuBtn = document.querySelector('.mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    // Toggle mobile menu
+    mobileMenuBtn.addEventListener('click', function () {
+        mobileMenuBtn.classList.toggle('active');
+        navLinks.classList.toggle('show');
+        
+        // Remove any body class manipulation
+    });
+
+    // Close menu when a link is clicked
+    const menuItems = document.querySelectorAll('.nav-links a');
+    menuItems.forEach(item => {
+        item.addEventListener('click', function () {
+            mobileMenuBtn.classList.remove('active');
+            navLinks.classList.remove('show');
         });
+    });
+});
     </script>
 </body>
 </html>

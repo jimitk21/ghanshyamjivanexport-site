@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <title>GhanshyamJivan Exports - Premium Agricultural Products</title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -37,13 +37,13 @@
                 <div class="info-item">
                     <i class="fas fa-phone"></i>
                     <span>+91 8347973417</span>
-                  
+                    
                 </div>
             </div>
         </div>
     </header>
     
-  <!-- Navigation -->
+<!-- Navigation -->
 <nav>
     <div class="container">
         <ul class="nav-links">
@@ -56,19 +56,19 @@
             <li><a href="#contact">Contact Us</a></li>
         </ul>
         <div class="mobile-menu">
-            <i class="fas fa-bars"></i>
+            <span class="menu-icon hamburger"><i class="fas fa-bars"></i></span>
+            <span class="menu-icon close"><i class="fas fa-times"></i></span>
         </div>
     </div>
 </nav>
-
+ 
     <!-- Hero Section -->
     <section class="hero">
-        <!-- Added hero background image -->
+        <!-- Hero background image -->
         <img src="bg.jpg" alt="Agricultural Background" class="hero-image">
         <div class="hero-content">
             <h2>Exporting Quality Agricultural Products Worldwide</h2>
             <p>Excellent Quality Agricultural Products</p>
-            <!-- Removed the "Get a Quote" button as requested -->
         </div>
     </section>
     
@@ -326,7 +326,7 @@
                 <div class="contact-info-card">
                     <i class="fas fa-phone-alt"></i>
                     <h3>Call Us</h3>
-               
+                  
                     <p>+91 8347976780</p>
                     <p>+91 7201924120</p>
                 </div>
@@ -417,207 +417,225 @@
         <i class="fab fa-whatsapp"></i>
     </a>
     <script>
-
         // Add this to the end of your index.html script section
-document.querySelector('.mobile-menu').addEventListener('click', function() {
-    document.querySelector('.nav-links').classList.toggle('show');
+        document.addEventListener('DOMContentLoaded', function () {
+    const mobileMenuBtn = document.querySelector('.mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    // Toggle mobile menu
+    mobileMenuBtn.addEventListener('click', function () {
+        mobileMenuBtn.classList.toggle('active');
+        navLinks.classList.toggle('show');
+        
+        // Remove any body class manipulation
+    });
+
+    // Close menu when a link is clicked
+    const menuItems = document.querySelectorAll('.nav-links a');
+    menuItems.forEach(item => {
+        item.addEventListener('click', function () {
+            mobileMenuBtn.classList.remove('active');
+            navLinks.classList.remove('show');
+        });
+    });
 });
-     document.addEventListener('DOMContentLoaded', function() {
+
     // Product navigation elements
-    const productsGrid = document.querySelector('.products-grid');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const productCards = document.querySelectorAll('.product-card');
-    
-    // Category navigation elements
-    const categoryGrid = document.querySelector('.category-grid');
-    const catPrevBtn = document.getElementById('cat-prev-btn');
-    const catNextBtn = document.getElementById('cat-next-btn');
-    const categoryCards = document.querySelectorAll('.category-card');
-    
-    // Set up both carousels with infinite scrolling
-    const productCarousel = setupCarousel(productsGrid, productCards, prevBtn, nextBtn);
-    const categoryCarousel = setupCarousel(categoryGrid, categoryCards, catPrevBtn, catNextBtn);
-    
-    // Set up auto-scrolling for both carousels
-    const autoScrollInterval = 3000; // 3 seconds between slides
-    
-    // Auto-scroll for products
-    let productAutoScroll = setInterval(() => {
-        productCarousel.next();
-    }, autoScrollInterval);
-    
-    // Auto-scroll for categories
-    let categoryAutoScroll = setInterval(() => {
-        categoryCarousel.next();
-    }, autoScrollInterval);
-    
-    // Pause auto-scrolling on user interaction
-    [prevBtn, nextBtn].forEach(btn => {
-        btn.addEventListener('mouseenter', () => clearInterval(productAutoScroll));
-        btn.addEventListener('mouseleave', () => {
-            productAutoScroll = setInterval(() => productCarousel.next(), autoScrollInterval);
-        });
-    });
-    
-    [catPrevBtn, catNextBtn].forEach(btn => {
-        btn.addEventListener('mouseenter', () => clearInterval(categoryAutoScroll));
-        btn.addEventListener('mouseleave', () => {
-            categoryAutoScroll = setInterval(() => categoryCarousel.next(), autoScrollInterval);
-        });
-    });
-    
-    // Pause on carousel hover
-    productsGrid.addEventListener('mouseenter', () => clearInterval(productAutoScroll));
-    productsGrid.addEventListener('mouseleave', () => {
-        productAutoScroll = setInterval(() => productCarousel.next(), autoScrollInterval);
-    });
-    
-    categoryGrid.addEventListener('mouseenter', () => clearInterval(categoryAutoScroll));
-    categoryGrid.addEventListener('mouseleave', () => {
-        categoryAutoScroll = setInterval(() => categoryCarousel.next(), autoScrollInterval);
-    });
-    
-    function setupCarousel(container, originalItems, prevButton, nextButton) {
-        if (originalItems.length === 0) return;
+    document.addEventListener('DOMContentLoaded', function() {
+        // Product navigation elements
+        const productsGrid = document.querySelector('.products-grid');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const productCards = document.querySelectorAll('.product-card');
         
-        const cardWidth = 320; // Card width + gap
-        const totalOriginalItems = originalItems.length;
+        // Category navigation elements
+        const categoryGrid = document.querySelector('.category-grid');
+        const catPrevBtn = document.getElementById('cat-prev-btn');
+        const catNextBtn = document.getElementById('cat-next-btn');
+        const categoryCards = document.querySelectorAll('.category-card');
         
-        // Clear existing clones if any
-        const existingItems = container.querySelectorAll(':scope > *');
-        existingItems.forEach(item => item.remove());
+        // Set up both carousels with infinite scrolling
+        const productCarousel = setupCarousel(productsGrid, productCards, prevBtn, nextBtn);
+        const categoryCarousel = setupCarousel(categoryGrid, categoryCards, catPrevBtn, catNextBtn);
         
-        // Clone items for infinite scroll - first add originals back
-        originalItems.forEach(item => {
-            container.appendChild(item.cloneNode(true));
-        });
+        // Set up auto-scrolling for both carousels
+        const autoScrollInterval = 3000; // 3 seconds between slides
         
-        // Then add clones on both ends
-        for (let i = 0; i < totalOriginalItems; i++) {
-            // Add clones to the end
-            const endClone = originalItems[i].cloneNode(true);
-            container.appendChild(endClone);
-            
-            // Add clones to the beginning
-            const startClone = originalItems[totalOriginalItems - 1 - i].cloneNode(true);
-            container.prepend(startClone);
-        }
+        // Auto-scroll for products
+        let productAutoScroll = setInterval(() => {
+            productCarousel.next();
+        }, autoScrollInterval);
         
-        // Set initial position to show the first set of original items
-        let currentPosition = totalOriginalItems;
-        let isTransitioning = false;
+        // Auto-scroll for categories
+        let categoryAutoScroll = setInterval(() => {
+            categoryCarousel.next();
+        }, autoScrollInterval);
         
-        container.style.transition = 'none';
-        container.style.transform = `translateX(-${currentPosition * cardWidth}px)`;
-        
-        // Force reflow to make sure the initial position is applied before adding transition
-        container.offsetHeight;
-        
-        // Add transition after initial positioning
-        setTimeout(() => {
-            container.style.transition = 'transform 0.5s ease';
-        }, 50);
-        
-        // Function to move to previous slide
-        function prevSlide() {
-            if (isTransitioning) return;
-            isTransitioning = true;
-            currentPosition--;
-            updateCarouselPosition();
-        }
-        
-        // Function to move to next slide
-        function nextSlide() {
-            if (isTransitioning) return;
-            isTransitioning = true;
-            currentPosition++;
-            updateCarouselPosition();
-        }
-        
-        // Navigate to previous slide
-        prevButton.addEventListener('click', prevSlide);
-        
-        // Navigate to next slide
-        nextButton.addEventListener('click', nextSlide);
-        
-        function updateCarouselPosition() {
-            container.style.transform = `translateX(-${currentPosition * cardWidth}px)`;
-            
-            // Check for position reset after transition completes
-            container.addEventListener('transitionend', resetPositionIfNeeded, { once: true });
-        }
-        
-        function resetPositionIfNeeded() {
-            // If we've moved beyond the start clones, jump to the end
-            if (currentPosition < totalOriginalItems) {
-                container.style.transition = 'none';
-                currentPosition = currentPosition + totalOriginalItems;
-                container.style.transform = `translateX(-${currentPosition * cardWidth}px)`;
-            }
-            
-            // If we've moved beyond the end clones, jump to the start
-            if (currentPosition >= totalOriginalItems * 2) {
-                container.style.transition = 'none';
-                currentPosition = currentPosition - totalOriginalItems;
-                container.style.transform = `translateX(-${currentPosition * cardWidth}px)`;
-            }
-            
-            // Force reflow before re-enabling transitions
-            container.offsetHeight;
-            
-            // Re-enable transition
-            setTimeout(() => {
-                container.style.transition = 'transform 0.5s ease';
-                isTransitioning = false;
-            }, 10);
-        }
-        
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            // Maintain current position on resize
-            container.style.transform = `translateX(-${currentPosition * cardWidth}px)`;
-        });
-        
-        // Make buttons always available (never disabled) for infinite scroll
-        prevButton.style.opacity = '1';
-        prevButton.style.pointerEvents = 'auto';
-        nextButton.style.opacity = '1';
-        nextButton.style.pointerEvents = 'auto';
-        
-        // Return methods to control the carousel
-        return {
-            prev: prevSlide,
-            next: nextSlide
-        };
-    }
-    
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('contact-form').addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent default form submission
-
-                // Collect form data
-                const formData = {
-                    name: this.name.value,
-                    email: this.email.value,
-                    phone: this.phone.value,
-                    product_category: this.product_category.value,
-                    message: this.message.value
-                };
-
-                // Send email using EmailJS
-                emailjs.send('service_baa5oc9', 'template_ddidwrn', formData)
-                    .then(function(response) {
-                        alert('Message sent successfully! We will get back to you soon.');
-                        document.getElementById('contact-form').reset(); // Reset form fields
-                    }, function(error) {
-                        alert('Failed to send message. Please try again later.');
-                        console.error('EmailJS Error:', error);
-                    });
+        // Pause auto-scrolling on user interaction
+        [prevBtn, nextBtn].forEach(btn => {
+            btn.addEventListener('mouseenter', () => clearInterval(productAutoScroll));
+            btn.addEventListener('mouseleave', () => {
+                productAutoScroll = setInterval(() => productCarousel.next(), autoScrollInterval);
             });
         });
+        
+        [catPrevBtn, catNextBtn].forEach(btn => {
+            btn.addEventListener('mouseenter', () => clearInterval(categoryAutoScroll));
+            btn.addEventListener('mouseleave', () => {
+                categoryAutoScroll = setInterval(() => categoryCarousel.next(), autoScrollInterval);
+            });
+        });
+        
+        // Pause on carousel hover
+        productsGrid.addEventListener('mouseenter', () => clearInterval(productAutoScroll));
+        productsGrid.addEventListener('mouseleave', () => {
+            productAutoScroll = setInterval(() => productCarousel.next(), autoScrollInterval);
+        });
+        
+        categoryGrid.addEventListener('mouseenter', () => clearInterval(categoryAutoScroll));
+        categoryGrid.addEventListener('mouseleave', () => {
+            categoryAutoScroll = setInterval(() => categoryCarousel.next(), autoScrollInterval);
+        });
+        
+        function setupCarousel(container, originalItems, prevButton, nextButton) {
+            if (originalItems.length === 0) return;
+            
+            const cardWidth = 320; // Card width + gap
+            const totalOriginalItems = originalItems.length;
+            
+            // Clear existing clones if any
+            const existingItems = container.querySelectorAll(':scope > *');
+            existingItems.forEach(item => item.remove());
+            
+            // Clone items for infinite scroll - first add originals back
+            originalItems.forEach(item => {
+                container.appendChild(item.cloneNode(true));
+            });
+            
+            // Then add clones on both ends
+            for (let i = 0; i < totalOriginalItems; i++) {
+                // Add clones to the end
+                const endClone = originalItems[i].cloneNode(true);
+                container.appendChild(endClone);
+                
+                // Add clones to the beginning
+                const startClone = originalItems[totalOriginalItems - 1 - i].cloneNode(true);
+                container.prepend(startClone);
+            }
+            
+            // Set initial position to show the first set of original items
+            let currentPosition = totalOriginalItems;
+            let isTransitioning = false;
+            
+            container.style.transition = 'none';
+            container.style.transform = `translateX(-${currentPosition * cardWidth}px)`;
+            
+            // Force reflow to make sure the initial position is applied before adding transition
+            container.offsetHeight;
+            
+            // Add transition after initial positioning
+            setTimeout(() => {
+                container.style.transition = 'transform 0.5s ease';
+            }, 50);
+            
+            // Function to move to previous slide
+            function prevSlide() {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                currentPosition--;
+                updateCarouselPosition();
+            }
+            
+            // Function to move to next slide
+            function nextSlide() {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                currentPosition++;
+                updateCarouselPosition();
+            }
+            
+            // Navigate to previous slide
+            prevButton.addEventListener('click', prevSlide);
+            
+            // Navigate to next slide
+            nextButton.addEventListener('click', nextSlide);
+            
+            function updateCarouselPosition() {
+                container.style.transform = `translateX(-${currentPosition * cardWidth}px)`;
+                
+                // Check for position reset after transition completes
+                container.addEventListener('transitionend', resetPositionIfNeeded, { once: true });
+            }
+            
+            function resetPositionIfNeeded() {
+                // If we've moved beyond the start clones, jump to the end
+                if (currentPosition < totalOriginalItems) {
+                    container.style.transition = 'none';
+                    currentPosition = currentPosition + totalOriginalItems;
+                    container.style.transform = `translateX(-${currentPosition * cardWidth}px)`;
+                }
+                
+                // If we've moved beyond the end clones, jump to the start
+                if (currentPosition >= totalOriginalItems * 2) {
+                    container.style.transition = 'none';
+                    currentPosition = currentPosition - totalOriginalItems;
+                    container.style.transform = `translateX(-${currentPosition * cardWidth}px)`;
+                }
+                
+                // Force reflow before re-enabling transitions
+                container.offsetHeight;
+                
+                // Re-enable transition
+                setTimeout(() => {
+                    container.style.transition = 'transform 0.5s ease';
+                    isTransitioning = false;
+                }, 10);
+            }
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                // Maintain current position on resize
+                container.style.transform = `translateX(-${currentPosition * cardWidth}px)`;
+            });
+            
+            // Make buttons always available (never disabled) for infinite scroll
+            prevButton.style.opacity = '1';
+            prevButton.style.pointerEvents = 'auto';
+            nextButton.style.opacity = '1';
+            nextButton.style.pointerEvents = 'auto';
+            
+            // Return methods to control the carousel
+            return {
+                prev: prevSlide,
+                next: nextSlide
+            };
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Collect form data
+            const formData = {
+                name: this.name.value,
+                email: this.email.value,
+                phone: this.phone.value,
+                product_category: this.product_category.value,
+                message: this.message.value
+            };
+
+            // Send email using EmailJS
+            emailjs.send('service_baa5oc9', 'template_ddidwrn', formData)
+                .then(function(response) {
+                    alert('Message sent successfully! We will get back to you soon.');
+                    document.getElementById('contact-form').reset(); // Reset form fields
+                }, function(error) {
+                    alert('Failed to send message. Please try again later.');
+                    console.error('EmailJS Error:', error);
+                });
+        });
+    });
     </script>
 </body>
 </html>

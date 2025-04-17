@@ -115,19 +115,29 @@ header .container {
 nav {
     background-color: var(--primary-color);
     padding: 1rem 0;
+    position: relative;
+    z-index: 1000;
+}
+
+nav .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 .nav-links {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 1rem;
+    transition: all 0.3s ease;
 }
 
 .nav-links a {
     color: var(--text-light);
     font-weight: 500;
     transition: color 0.3s;
-    padding: 0.5rem 0;
+    padding: 0.9rem 0;
     position: relative;
 }
 
@@ -140,7 +150,7 @@ nav {
     content: '';
     position: absolute;
     width: 0;
-    height: 2px;
+    height: 1px;
     bottom: 0;
     left: 0;
     background-color: var(--secondary-color);
@@ -151,14 +161,140 @@ nav {
 .nav-links a.active::after {
     width: 100%;
 }
-
 .mobile-menu {
-    display: none;
+    display: none; /* Hidden by default for all screens */
     color: var(--text-light);
-    font-size: 1.5rem;
     cursor: pointer;
+    position: absolute;
+    right: 20px; /* Position from left */
+    top: 50%; /* Center vertically in the nav bar */
+    transform: translateY(-50%); /* Perfect vertical centering */
+    z-index: 1001;
+    background-color: var(--primary-dark);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
+.whatsapp-float {
+    z-index: 1100; /* Higher z-index than the dropdown menu */
+}
+
+
+.mobile-menu:hover {
+    background-color: var(--primary-light);
+}
+
+.menu-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.menu-icon.hamburger {
+    display: flex;
+}
+
+.menu-icon.close {
+    display: none;
+}
+
+.mobile-menu.active .menu-icon.hamburger {
+    display: none;
+}
+
+.mobile-menu.active .menu-icon.close {
+    display: flex;
+}
+
+/* Hero section positioning */
+.hero {
+    position: relative;
+    z-index: 1;
+}
+/* Mobile Navigation Styles */
+/* Mobile Navigation Styles */
+@media (max-width: 768px) {
+    /* Mobile menu button styles */
+    .mobile-menu {
+        display: flex;
+        position: absolute;
+        right: 20px;
+        top: 1.4%;
+        transform: translateY(-50%);
+        z-index: 1001;
+        background-color: var(--primary-dark);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    /* Menu icon styles */
+    .menu-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        font-size: 1.2rem;
+        color: white;
+    }
+
+    .menu-icon.close {
+        display: none;
+    }
+
+    .mobile-menu.active .menu-icon.hamburger {
+        display: none;
+    }
+    .mobile-menu.active .menu-icon.close {
+        display: flex;
+    }
+
+    /* Nav links styles */
+    .nav-links {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--primary-color);
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease;
+    }
+
+    .nav-links.show {
+        max-height: 100vh; /* Allow the menu to grow as needed */
+        overflow-y: auto; /* Enable scrolling if menu is too tall */
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 0.8rem 1rem;
+        color: white;
+    }
+
+    /* Remove the body overflow restriction */
+    /* body.menu-open {
+        overflow: hidden;
+    } */
+}
 /* Hero Section */
 .hero {
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1920/700');
@@ -434,7 +570,6 @@ nav {
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
-
 /* Contact Section Email Font Size */
 .contact-info-card:nth-child(2) p {
     font-size: 0.87rem; /* Smaller font size specifically for email in contact section */
@@ -443,7 +578,6 @@ nav {
 header .info-item span {
     font-size: 0.9rem; /* Smaller font size for email and phone in header */
 }
-
 .form-group {
     margin-bottom: 1rem;
 }

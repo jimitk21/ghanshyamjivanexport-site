@@ -105,12 +105,13 @@
                 <div class="info-item">
                     <i class="fas fa-phone"></i>
                     <span>+91 8347973417</span>
-                   
+                    
                 </div>
             </div>
         </div>
     </header>
     
+    <!-- Navigation -->
     <!-- Navigation -->
     <nav>
         <div class="container">
@@ -119,12 +120,13 @@
                 <li><a href="aboutus.html">About Us</a></li>
                 <li><a href="index.html#products">Our Products</a></li>
                 <li><a href="index.html#quality">Quality</a></li>
-                <li><a href="index.html#gallery" class="active">Our Category</a></li>
+                <li><a href="index.html#gallery">Our Category</a></li>
                 <li><a href="certificates.html">Certificates</a></li>
                 <li><a href="index.html#contact">Contact Us</a></li>
             </ul>
             <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
+                <span class="menu-icon hamburger"><i class="fas fa-bars"></i></span>
+                <span class="menu-icon close"><i class="fas fa-times"></i></span>
             </div>
         </div>
     </nav>
@@ -215,9 +217,26 @@
     
     <script>
 
-        // Add this to the end of your index.html script section
-document.querySelector('.mobile-menu').addEventListener('click', function() {
-    document.querySelector('.nav-links').classList.toggle('show');
+document.addEventListener('DOMContentLoaded', function () {
+    const mobileMenuBtn = document.querySelector('.mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    // Toggle mobile menu
+    mobileMenuBtn.addEventListener('click', function () {
+        mobileMenuBtn.classList.toggle('active');
+        navLinks.classList.toggle('show');
+        
+        // Remove any body class manipulation
+    });
+
+    // Close menu when a link is clicked
+    const menuItems = document.querySelectorAll('.nav-links a');
+    menuItems.forEach(item => {
+        item.addEventListener('click', function () {
+            mobileMenuBtn.classList.remove('active');
+            navLinks.classList.remove('show');
+        });
+    });
 });
         // Mobile menu functionality
         document.addEventListener('DOMContentLoaded', function() {
